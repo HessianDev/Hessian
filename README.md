@@ -41,6 +41,9 @@ You can download it from the releases section and run the .exe, or play the web 
 * Pneumatic pistons currently work best on simple mechanical systems (such as the `BasicRobot` preset).
 
 
+* The robot simply does not exist when spawning for a test drive on web build (see **Technical Notes**)
+
+
 
 ## Planned Features
 
@@ -63,3 +66,5 @@ You can download it from the releases section and run the .exe, or play the web 
 
 
 * **Physics Backend:** `Box3D-godot` was evaluated as a alternative engine backend, but adapting the custom robotics system presented significant integration hurdles. Development is locked to Jolt for stability, though community forks testing alternate physics engines are always welcome!
+
+* **Web Build Errors:** Currently, you cannot load robots onto the field in the web version, this is because the Jolt plugin version currently doesn't support wasm32 builds, so it doesn't work for all browsers
