@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cxe6jttw60jjr"]
 
-[ext_resource type="Script" uid="uid://b0vic0csr7xrq" path="res://Scripts/game_control.gd" id="1_h2yge"]
+[ext_resource type="Script" uid="uid://duoka3s1hw6g5" path="res://Scripts/game_control.gd" id="1_h2yge"]
 [ext_resource type="Texture2D" uid="uid://ceg7ynuisc0p6" path="res://Imports/Prototype_Grid_Gray_04-128x128.png" id="2_0xm2m"]
-[ext_resource type="Script" uid="uid://bueuqyrv6xwfo" path="res://Scripts/Robot3D.gd" id="3_8gbba"]
+[ext_resource type="Script" uid="uid://c8ey3ldl182pb" path="res://Scripts/Robot3D.gd" id="3_8gbba"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xm2m"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -95,7 +95,5 @@ size = Vector3(8.733337, 7.8359375, 3.9608154)
 
 [node name="Robot3D" type="Node3D" parent="." unique_id=1407473017]
 script = ExtResource("3_8gbba")
-simulate_individual_rollers = true
-metadata/_custom_type_script = "uid://bueuqyrv6xwfo"
 
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/back" to="." method="_on_back_pressed"]

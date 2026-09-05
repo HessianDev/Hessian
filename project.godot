@@ -19,6 +19,10 @@ boot_splash/image="uid://fbityy0du68m"
 config/icon="uid://djljc4yjpqfox"
 boot_splash/minimum_display_time=5
 
+[autoload]
+
+GameData="*uid://cbudjv65afglm"
+
 [display]
 
 window/size/viewport_width=1280

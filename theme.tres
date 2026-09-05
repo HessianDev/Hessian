@@ -1,6 +1,6 @@
 [gd_resource type="Theme" format=3 uid="uid://dyg530cy1pvik"]
 
-[ext_resource type="FontFile" uid="uid://dfxch0q4i7ec5" path="res://Imports/sometype-mono/SometypeMono-Regular.ttf" id="1_e1x85"]
+[ext_resource type="FontFile" uid="uid://cgpfe8jphc61c" path="res://Imports/Gotham Light.otf" id="1_e1x85"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1rmny"]
 bg_color = Color(0.09803922, 0.09803922, 0.09803922, 0.44313726)

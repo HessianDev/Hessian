@@ -140,6 +140,15 @@ func _ready() -> void:
 	
 	$UI/save/save_close.pressed.connect(_close_save_panel)
 	$UI/load/load_close.pressed.connect(_close_load_panel)
+	
+	if GameData.has_pending_data:
+		var payload := GameData.take_robodata()
+		$UI/menu.visible = false
+		if payload["data"] is Array and not payload["data"].is_empty():
+			if payload["name"]:
+				selected_load_file = payload["name"]
+				current_robot_filename = payload["name"]
+			load_robot(payload["data"])
 
 func _copy_presets_to_user() -> void:
 	for preset_name in preset_robots.keys():
@@ -2293,15 +2302,8 @@ func _update_control_hints() -> void:
 		_last_hint_text = hint_text
 
 func _on_play_pressed() -> void:
-	var test_scene: PackedScene = load("res://Scenes/main.tscn")
-	var next_scene_instance = test_scene.instantiate()
-	var robodata = save_robot()
-	next_scene_instance.get_robodata(robodata, selected_load_file)
-	
-	get_tree().root.add_child(next_scene_instance)
-	get_tree().current_scene = next_scene_instance
-	
-	queue_free()
+	GameData.set_robodata(save_robot(), selected_load_file)
+	get_tree().change_scene_to_file("res://Scenes/main.tscn")
 
 func _on_new_pressed() -> void:
 	$UI/menu.visible = false
@@ -2321,15 +2323,6 @@ func _do_new_robot() -> void:
 	assembly_id_counter = 0
 	current_robot_filename = ""
 	is_modified = false
-
-func get_robodata(data, n):
-	await tree_entered
-	await get_tree().process_frame
-	$UI/menu.visible = false
-	if n:
-		selected_load_file = n
-		current_robot_filename = selected_load_file
-	load_robot(data)
 
 const ASSEMBLY_TOUCH_MARGIN: float = 0.001
 

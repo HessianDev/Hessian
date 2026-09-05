@@ -4,7 +4,8 @@ extends Node3D
 const SAVE_DIR = "user://programs/"
 
 @export var start_frozen: bool = false
-@export var simulate_individual_rollers:bool = false
+@export var freeze_all:bool = false
+@export var simulate_individual_rollers:bool = true
 
 var assemblies:Array[PartAssembly]
 var motors:Dictionary[int,Motor]
@@ -778,12 +779,13 @@ func setup():
 	if runtime:
 		runtime.trigger_event("ready")
 	
-	for i in assemblies:
-		if i == main_assembely:
-			if !start_frozen:
+	if !freeze_all:
+		for i in assemblies:
+			if i == main_assembely:
+				if !start_frozen:
+					i.activate_body()
+			else:
 				i.activate_body()
-		else:
-			i.activate_body()
 	
 	set_up = true
 
