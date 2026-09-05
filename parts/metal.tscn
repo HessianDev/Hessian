@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://rpt4ia7k71wu"]
+
+[ext_resource type="Script" uid="uid://b1lunhx28t6mh" path="res://Scripts/metal.gd" id="1_tmd11"]
+[ext_resource type="Material" uid="uid://luy7eyy42von" path="res://materials/highlight.tres" id="2_ewl8b"]
+[ext_resource type="Material" uid="uid://d8a3crofho0r" path="res://materials/light grey.tres" id="3_eu5rn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tmd11"]
+resource_local_to_scene = true
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.37036446, 0.3703645, 0.37036446, 1)
+metallic_specular = 1.0
+roughness = 0.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gv0v2"]
+resource_local_to_scene = true
+size = Vector3(0.01, 0.0016, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t3meb"]
+resource_local_to_scene = true
+size = Vector3(0.2, 0.0016, 0.01)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fa546"]
+resource_local_to_scene = true
+size = Vector3(0.2, 0.0016, 0.01)
+
+[node name="part" type="AnimatableBody3D" unique_id=1749976614]
+input_capture_on_drag = true
+sync_to_physics = false
+script = ExtResource("1_tmd11")
+length = 0.02
+density = null
+part_type = 6
+
+[node name="base" type="CSGBox3D" parent="." unique_id=676475941]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0008, 0)
+material_override = SubResource("StandardMaterial3D_tmd11")
+material_overlay = ExtResource("2_ewl8b")
+calculate_tangents = false
+collision_layer = 2
+collision_mask = 0
+size = Vector3(0.02, 0.0016, 0.02)
+material = ExtResource("3_eu5rn")
+
+[node name="right" type="CSGBox3D" parent="." unique_id=409206526]
+transform = Transform3D(-4.371139e-08, -1, -4.371139e-08, 0, -4.371139e-08, 1, -1, 4.371139e-08, 1.9106855e-15, 0.0092, 0.005, 0)
+material_override = SubResource("StandardMaterial3D_tmd11")
+material_overlay = ExtResource("2_ewl8b")
+calculate_tangents = false
+collision_layer = 2
+collision_mask = 0
+size = Vector3(0.02, 0.0016, 0.01)
+material = ExtResource("3_eu5rn")
+
+[node name="left" type="CSGBox3D" parent="." unique_id=611729383]
+transform = Transform3D(-2.1855693e-07, -1, -4.371139e-08, -7.642741e-15, -4.371139e-08, 1, -1, 2.1855693e-07, 1.9106855e-15, -0.0092, 0.005, 0)
+material_override = SubResource("StandardMaterial3D_tmd11")
+material_overlay = ExtResource("2_ewl8b")
+calculate_tangents = false
+collision_layer = 2
+collision_mask = 0
+size = Vector3(0.02, 0.0016, 0.01)
+material = ExtResource("3_eu5rn")
+
+[node name="baseC" type="CollisionShape3D" parent="." unique_id=388708496]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0008, 0)
+shape = SubResource("BoxShape3D_gv0v2")
+
+[node name="rightC" type="CollisionShape3D" parent="." unique_id=645984467]
+transform = Transform3D(-4.371139e-08, -1, -4.371139e-08, 0, -4.371139e-08, 1, -1, 4.371139e-08, 1.9106855e-15, 0.0042, 0.005, 0)
+shape = SubResource("BoxShape3D_t3meb")
+
+[node name="leftC" type="CollisionShape3D" parent="." unique_id=346807172]
+transform = Transform3D(-4.371139e-08, -1, -4.371139e-08, 0, -4.371139e-08, 1, -1, 4.371139e-08, 1.9106855e-15, -0.0042, 0.005, 0)
+shape = SubResource("BoxShape3D_fa546")

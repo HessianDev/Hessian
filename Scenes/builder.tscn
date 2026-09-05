@@ -1,0 +1,550 @@
+[gd_scene format=3 uid="uid://cdv1gc3txqkuq"]
+
+[ext_resource type="Script" uid="uid://ddbs1a2mveybm" path="res://Scripts/builder.gd" id="1_l5ofj"]
+[ext_resource type="Script" uid="uid://dfhqskshl4tfd" path="res://Scripts/cameraarm.gd" id="2_nebbf"]
+[ext_resource type="Shader" uid="uid://brkxytchkio5w" path="res://overlay.gdshader" id="4_lfm8k"]
+[ext_resource type="Script" uid="uid://d08r41sfeph2t" path="res://Scripts/item_list.gd" id="4_nebbf"]
+[ext_resource type="Script" uid="uid://cey4vmtr8ehnk" path="res://Scripts/edit_panel.gd" id="5_h00wr"]
+[ext_resource type="PackedScene" uid="uid://d3bpqsbptn6r5" path="res://Scenes/code_editor.tscn" id="6_gtodl"]
+[ext_resource type="Script" uid="uid://e3f1ox6y6cvg" path="res://addons/Gizmo3DScript/gizmo3D.gd" id="6_ucbhk"]
+[ext_resource type="Texture2D" uid="uid://fbityy0du68m" path="res://Imports/hessian_title.png" id="7_lfm8k"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_l5ofj"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_clihi"]
+sky_material = SubResource("ProceduralSkyMaterial_l5ofj")
+
+[sub_resource type="Environment" id="Environment_nebbf"]
+background_mode = 1
+background_color = Color(0.05882353, 0.05882353, 0.05882353, 1)
+sky = SubResource("Sky_clihi")
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+reflected_light_source = 1
+glow_enabled = true
+glow_intensity = 1.14
+glow_hdr_scale = 0.0
+
+[sub_resource type="Gradient" id="Gradient_eymqu"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2vyfk"]
+gradient = SubResource("Gradient_eymqu")
+fill = 1
+fill_from = Vector2(0.65384614, 0.15384616)
+fill_to = Vector2(0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fptbs"]
+shader = ExtResource("4_lfm8k")
+shader_parameter/overlay_texture = SubResource("GradientTexture2D_2vyfk")
+shader_parameter/opacity = 0.250000011875
+shader_parameter/tint = Color(1, 1, 1, 1)
+shader_parameter/scale = Vector2(1, 1)
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/blend_mode = 0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lhfqy"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lfm8k"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="Animation" id="Animation_lfm8k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_eymqu"]
+resource_name = "start"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.34151012, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.55),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.70980394)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2vyfk"]
+_data = {
+&"RESET": SubResource("Animation_lfm8k"),
+&"start": SubResource("Animation_eymqu")
+}
+
+[node name="Node3D" type="Node3D" unique_id=1405774318 node_paths=PackedStringArray("workspace_node", "camera_3d")]
+script = ExtResource("1_l5ofj")
+workspace_node = NodePath("RobotWorkspace")
+camera_3d = NodePath("cameraarm/Camera3D")
+axle_unsnap_threshold = 0.05
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1906142939]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1791148089]
+environment = SubResource("Environment_nebbf")
+
+[node name="cameraarm" type="Node3D" parent="." unique_id=406219627]
+transform = Transform3D(0.70710677, -0.49999997, 0.49999997, 0, 0.70710677, 0.70710677, -0.70710677, -0.49999997, 0.49999997, 0, 0, 0)
+script = ExtResource("2_nebbf")
+zoom_speed = 0.5
+
+[node name="Camera3D" type="Camera3D" parent="cameraarm" unique_id=1809811867]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
+fov = 21.9
+
+[node name="RobotWorkspace" type="Node3D" parent="." unique_id=1173179167]
+
+[node name="PartPopup" type="PopupMenu" parent="." unique_id=214702990]
+oversampling_override = 1.0
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=2080708264]
+
+[node name="PartSelector" type="ItemList" parent="UI" unique_id=894954981]
+visible = false
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -245.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("4_nebbf")
+
+[node name="EditPanel" type="Panel" parent="UI" unique_id=229592760]
+visible = false
+material = SubResource("ShaderMaterial_fptbs")
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -289.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("5_h00wr")
+
+[node name="VBox" type="VBoxContainer" parent="UI/EditPanel" unique_id=1568842805]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.041322313
+anchor_top = 0.012345679
+anchor_right = 0.9586777
+anchor_bottom = 0.9876543
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Title" type="Label" parent="UI/EditPanel/VBox" unique_id=1523392774]
+layout_mode = 2
+text = "PROPERTIES"
+
+[node name="Panel" type="Panel" parent="UI/EditPanel/VBox" unique_id=941353979]
+custom_minimum_size = Vector2(0, 5.215)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_lhfqy")
+
+[node name="Name" type="LineEdit" parent="UI/EditPanel/VBox" unique_id=477181332]
+layout_mode = 2
+placeholder_text = "Name"
+
+[node name="PropertiesContainer" type="VBoxContainer" parent="UI/EditPanel/VBox" unique_id=1420765610]
+layout_mode = 2
+
+[node name="to_editor" type="Button" parent="UI/EditPanel/VBox" unique_id=88874797]
+visible = false
+layout_mode = 2
+text = "To Code Editor"
+
+[node name="CreateAssemblyButton" type="Button" parent="UI/EditPanel/VBox" unique_id=1479177536]
+layout_mode = 2
+text = "Create New Assembely"
+
+[node name="DeleteButton" type="Button" parent="UI/EditPanel/VBox" unique_id=382459488]
+layout_mode = 2
+text = "Delete"
+
+[node name="load" type="Panel" parent="UI" unique_id=105535597]
+visible = false
+material = SubResource("ShaderMaterial_fptbs")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -239.0
+offset_top = -253.0
+offset_right = 239.0
+offset_bottom = 253.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/load" unique_id=1517159915]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 22.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UI/load/VBoxContainer" unique_id=1580128570]
+layout_mode = 2
+text = "LOAD ROBOT"
+horizontal_alignment = 1
+
+[node name="ItemList" type="ItemList" parent="UI/load/VBoxContainer" unique_id=926697751]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+
+[node name="Control" type="Control" parent="UI/load/VBoxContainer" unique_id=1239928145]
+custom_minimum_size = Vector2(0, 2.725)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/load/VBoxContainer" unique_id=1564166233]
+layout_mode = 2
+alignment = 1
+
+[node name="overwrite_btn" type="Button" parent="UI/load/VBoxContainer/HBoxContainer" unique_id=1598538678]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+theme_type_variation = &"WhiteButton"
+text = "OVERWRITE"
+
+[node name="load_btn" type="Button" parent="UI/load/VBoxContainer/HBoxContainer" unique_id=103016880]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+theme_type_variation = &"WhiteButton"
+text = "LOAD"
+
+[node name="delete_btn" type="Button" parent="UI/load/VBoxContainer/HBoxContainer" unique_id=890245232]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+theme_type_variation = &"WhiteButton"
+text = "DELETE"
+
+[node name="load_close" type="Button" parent="UI/load" unique_id=2069565405]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -53.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = 34.0
+grow_horizontal = 0
+text = "Close"
+
+[node name="save" type="Panel" parent="UI" unique_id=1593522437]
+visible = false
+material = SubResource("ShaderMaterial_fptbs")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -385.0
+offset_top = -65.0
+offset_right = 385.0
+offset_bottom = 65.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/save" unique_id=196257566]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.018828452
+anchor_top = 0.09999999
+anchor_right = 0.98117155
+anchor_bottom = 0.956
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="UI/save/VBoxContainer" unique_id=2047160623]
+layout_mode = 2
+text = "SAVE ROBOT"
+horizontal_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="UI/save/VBoxContainer" unique_id=1753077789]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="UI/save/VBoxContainer" unique_id=609908038]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+
+[node name="confirm_save" type="Button" parent="UI/save/VBoxContainer" unique_id=355234095]
+layout_mode = 2
+theme_type_variation = &"WhiteButton"
+text = "SAVE"
+
+[node name="save_close" type="Button" parent="UI/save" unique_id=459998792]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -57.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = 34.0
+grow_horizontal = 0
+text = "Close"
+
+[node name="ask_save" type="Panel" parent="UI" unique_id=1812132331]
+visible = false
+material = SubResource("ShaderMaterial_fptbs")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -387.0
+offset_top = -65.0
+offset_right = 387.0
+offset_bottom = 65.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ask_save" unique_id=1878844504]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.018828452
+anchor_top = 0.09999999
+anchor_right = 0.98117155
+anchor_bottom = 0.956
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="UI/ask_save/VBoxContainer" unique_id=67652937]
+layout_mode = 2
+text = "Do you want to save?"
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="UI/ask_save/VBoxContainer" unique_id=1753655116]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+
+[node name="confirm_save_yes" type="Button" parent="UI/ask_save/VBoxContainer" unique_id=691941059]
+layout_mode = 2
+theme_type_variation = &"WhiteButton"
+text = "YES"
+
+[node name="confirm_save_no" type="Button" parent="UI/ask_save/VBoxContainer" unique_id=1216779983]
+layout_mode = 2
+theme_type_variation = &"WhiteButton"
+text = "NO"
+
+[node name="play" type="Button" parent="UI" unique_id=426029415]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -93.0
+offset_top = -43.0
+offset_right = 93.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "TEST ROBOT"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI" unique_id=1165351694]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 28.0
+offset_top = 14.0
+offset_right = -571.0
+offset_bottom = 45.0
+grow_horizontal = 2
+
+[node name="new" type="Button" parent="UI/HBoxContainer" unique_id=464081254]
+layout_mode = 2
+text = "New"
+
+[node name="load" type="Button" parent="UI/HBoxContainer" unique_id=2045844062]
+layout_mode = 2
+text = "Load"
+
+[node name="save" type="Button" parent="UI/HBoxContainer" unique_id=1593573340]
+layout_mode = 2
+text = "Save"
+
+[node name="save_as" type="Button" parent="UI/HBoxContainer" unique_id=1384928949]
+layout_mode = 2
+text = "Save As"
+
+[node name="robo_name" type="Label" parent="UI" unique_id=64156746]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -194.0
+offset_top = 18.0
+offset_right = 194.0
+offset_bottom = 41.0
+grow_horizontal = 2
+mouse_filter = 1
+text = "Untitled"
+horizontal_alignment = 1
+
+[node name="CodeEditor" parent="UI" unique_id=1724571606 instance=ExtResource("6_gtodl")]
+visible = false
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/CodeEditor" unique_id=1175908516]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -37.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="exit_coder" type="Button" parent="UI/CodeEditor/HBoxContainer2" unique_id=1209661682]
+layout_mode = 2
+text = "Back to Robot Editor"
+
+[node name="ControlHints" type="Label" parent="UI" unique_id=420518420]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = -36.0
+offset_right = 52.0
+offset_bottom = -13.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 11
+
+[node name="menu" type="Panel" parent="UI" unique_id=397974717]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_lfm8k")
+
+[node name="TextureRect" type="TextureRect" parent="UI/menu" unique_id=1698611236]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_lfm8k")
+expand_mode = 1
+stretch_mode = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/menu" unique_id=1038218072]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 434.0
+offset_top = 112.0
+offset_right = -434.0
+offset_bottom = 174.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="new" type="Button" parent="UI/menu/VBoxContainer" unique_id=332227114]
+layout_mode = 2
+theme_type_variation = &"WhiteButton"
+text = "NEW ROBOT"
+
+[node name="load" type="Button" parent="UI/menu/VBoxContainer" unique_id=2108940073]
+layout_mode = 2
+theme_type_variation = &"WhiteButton"
+text = "LOAD ROBOT"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/menu" unique_id=720062349]
+libraries/ = SubResource("AnimationLibrary_2vyfk")
+autoplay = &"start"
+
+[node name="Gizmo3D" type="Node3D" parent="." unique_id=77167420]
+script = ExtResource("6_ucbhk")
+mode = 3
+_selection_box_color = Color(1, 0.5019608, 0, 0)
+translate_snap = 0.01
+metadata/_custom_type_script = "uid://e3f1ox6y6cvg"
+
+[connection signal="pressed" from="UI/EditPanel/VBox/to_editor" to="UI/EditPanel" method="_on_to_editor_pressed"]
+[connection signal="item_selected" from="UI/load/VBoxContainer/ItemList" to="." method="_on_item_list_item_selected"]
+[connection signal="pressed" from="UI/load/VBoxContainer/HBoxContainer/overwrite_btn" to="." method="_on_program_save_pressed"]
+[connection signal="pressed" from="UI/load/VBoxContainer/HBoxContainer/load_btn" to="." method="_on_program_load_pressed"]
+[connection signal="pressed" from="UI/load/VBoxContainer/HBoxContainer/delete_btn" to="." method="_on_program_delete_pressed"]
+[connection signal="pressed" from="UI/save/VBoxContainer/confirm_save" to="." method="_on_confirm_save_pressed"]
+[connection signal="pressed" from="UI/save/save_close" to="." method="_on_save_close_pressed"]
+[connection signal="pressed" from="UI/ask_save/VBoxContainer/confirm_save_yes" to="." method="_on_confirm_save_yes_pressed"]
+[connection signal="pressed" from="UI/ask_save/VBoxContainer/confirm_save_no" to="." method="_on_confirm_save_no_pressed"]
+[connection signal="pressed" from="UI/play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="UI/HBoxContainer/new" to="." method="_on_new_pressed"]
+[connection signal="pressed" from="UI/HBoxContainer/load" to="." method="_on_load_pressed"]
+[connection signal="pressed" from="UI/HBoxContainer/save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="UI/HBoxContainer/save_as" to="." method="_on_save_as_pressed"]
+[connection signal="pressed" from="UI/CodeEditor/HBoxContainer2/exit_coder" to="UI/EditPanel" method="_on_exit_coder_pressed"]
+[connection signal="pressed" from="UI/menu/VBoxContainer/new" to="." method="_on_new_pressed"]
+[connection signal="pressed" from="UI/menu/VBoxContainer/load" to="." method="_on_load_pressed"]

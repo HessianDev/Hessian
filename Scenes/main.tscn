@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://cxe6jttw60jjr"]
+
+[ext_resource type="Script" uid="uid://b0vic0csr7xrq" path="res://Scripts/game_control.gd" id="1_h2yge"]
+[ext_resource type="Texture2D" uid="uid://ceg7ynuisc0p6" path="res://Imports/Prototype_Grid_Gray_04-128x128.png" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://bueuqyrv6xwfo" path="res://Scripts/Robot3D.gd" id="3_8gbba"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xm2m"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_h2yge"]
+sky_material = SubResource("ProceduralSkyMaterial_0xm2m")
+
+[sub_resource type="Environment" id="Environment_1bvp3"]
+background_mode = 2
+sky = SubResource("Sky_h2yge")
+tonemap_mode = 2
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_h2yge"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h2yge"]
+size = Vector3(200, 4.551, 200)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2yge"]
+albedo_texture = ExtResource("2_0xm2m")
+metallic_specular = 0.0
+uv1_scale = Vector3(4, 4, 4)
+uv1_triplanar = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1bvp3"]
+material = SubResource("StandardMaterial3D_h2yge")
+size = Vector2(200, 200)
+
+[node name="Node3D" type="Node3D" unique_id=786241333]
+script = ExtResource("1_h2yge")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=930270072]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=329278532]
+environment = SubResource("Environment_1bvp3")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1155074142]
+transform = Transform3D(0.7460458, 0.19257599, -0.6374403, 0, 0.957269, 0.28919888, 0.6658947, -0.21575561, 0.7141665, -3.3325074, 3.596518, 8.743503)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1123378409]
+physics_material_override = SubResource("PhysicsMaterial_h2yge")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=427331805]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.274826, 0)
+shape = SubResource("BoxShape3D_h2yge")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1874572634]
+mesh = SubResource("PlaneMesh_1bvp3")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=797282316]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=905843235]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -63.0
+offset_top = -42.0
+offset_right = 63.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="back" type="Button" parent="CanvasLayer/HBoxContainer" unique_id=1966459080]
+layout_mode = 2
+text = "Back to Builder"
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1657853739]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.646501, 2.14958, -29.322779)
+use_collision = true
+size = Vector3(8.733337, 7.8359375, 3.9608154)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=1588751989]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.341612, 2.14958, 7.26293)
+use_collision = true
+size = Vector3(8.733337, 7.8359375, 3.9608154)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="." unique_id=1802255381]
+transform = Transform3D(0.715772, -0.6531143, 0.24720901, 0, 0.35399812, 0.93524617, -0.69833416, -0.66942286, 0.2533819, -25.805159, 0.89057255, -23.412592)
+use_collision = true
+size = Vector3(24.593994, 26.48938, 3.9608154)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=255844963]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.739862, 2.149582, -13.074408)
+use_collision = true
+size = Vector3(8.733337, 7.8359375, 3.9608154)
+
+[node name="Robot3D" type="Node3D" parent="." unique_id=1407473017]
+script = ExtResource("3_8gbba")
+simulate_individual_rollers = true
+metadata/_custom_type_script = "uid://bueuqyrv6xwfo"
+
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/back" to="." method="_on_back_pressed"]
