@@ -4,7 +4,7 @@
 
 **Hessian** is an open-source, low-poly 3D robotics simulator built in Godot 4.6. Construct custom robots using modular parts inspired by VEX V5 hardware—motors, pistons, axles, gears, and structural frames—program their behavior in an integrated visual block coding editor, and test your builds inside a real-time physics sandbox.
 
-**Current Features**
+## Current Features
 
 * **Modular Assembly:** Place and connect structural parts, axles, gears, pneumatic pistons, and motors.
 
@@ -19,7 +19,9 @@
 
 
 
-**How to Use**
+## How to Use
+
+You can download it from the releases section and run the .exe, or play the web version
 
 * **Build:** Start a new robot assembly or load a saved design from the build workspace. Place structural pieces, add mechanisms, and wire up components.
 
@@ -31,7 +33,7 @@
 
 
 
-**Known Issues**
+## Known Issues
 
 * Physics skipping can occasionally cause component clipping under heavy physics loads.
 
@@ -40,7 +42,7 @@
 
 
 
-**Planned Features**
+## Planned Features
 
 * Expanded parts library and interactive sensors.
 
@@ -55,7 +57,7 @@
 
 
 
-**Technical Notes**
+## Technical Notes
 
 * **Godot 4.6 vs. 4.7+:** Hessian relies on specific joint features provided by the external Godot Jolt extension. Until the editor-embedded version of Jolt reaches full joint feature parity in newer engine builds, development will remain on Godot 4.6.
 
