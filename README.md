@@ -47,14 +47,19 @@ You can download it from the releases section and run the .exe, or play the web 
 
 ## Planned Features
 
-* Expanded parts library and interactive sensors.
-
-
-* motor efficiency curves and thermal heating models.
-
+* **More parts** such as
+  * Sensors that give imperfect data and refresh rates (Distance Sensor, Inertial Sensor)
+  * Batteries and watts/ voltage for brain > motors (affecting temperature and efficiency)
+  * Standard and Mecanum wheels with adjustable grip
+  * More gears like worm gears, internal circle gears and rack gears
+  * Chains & Links with plastic flaps
+  * Pulleys & Rope
+  * Air tanks with simulating air pressure and such for forces
+  * Custom plexiglass plates and foam meshes
 
 * Expanded visual programming blocks and python support.
 
+* Debug system in testing robot scene (be able to hover over/ select parts and joints to see their stats)
 
 * Structured game field challenges (possible VEX/RECF ones as well)
 
